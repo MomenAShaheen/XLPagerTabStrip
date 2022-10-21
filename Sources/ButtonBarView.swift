@@ -134,8 +134,16 @@ open class ButtonBarView: UICollectionView {
 
         updateContentOffset(animated: animated, pagerScroll: pagerScroll, toFrame: selectedCellFrame, toIndex: (selectedCellIndexPath as NSIndexPath).row)
 
-        selectedBarFrame.size.width = selectedCellFrame.size.width
-        selectedBarFrame.origin.x = selectedCellFrame.origin.x
+//         selectedBarFrame.size.width = selectedCellFrame.size.width
+//         selectedBarFrame.origin.x = selectedCellFrame.origin.x
+        
+         if let sbWidth = self.selectedBarWidth {
+             selectedBarFrame.size.width = sbWidth
+             selectedBarFrame.origin.x = selectedCellFrame.origin.x + (selectedCellFrame.width - sbWidth) / 2
+         } else {
+             selectedBarFrame.size.width = selectedCellFrame.size.width
+             selectedBarFrame.origin.x = selectedCellFrame.origin.x
+         }
 
         if animated {
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
@@ -194,6 +202,8 @@ open class ButtonBarView: UICollectionView {
 
         selectedBarFrame.size.height = selectedBarHeight
         selectedBar.frame = selectedBarFrame
+        
+
     }
 
     override open func layoutSubviews() {
